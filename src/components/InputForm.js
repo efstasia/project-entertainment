@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Category } from './Category';
+import { Header } from './Header';
 import { AddInputForm } from './AddInputForm';
 import { InputItem } from './InputItem';
 import { EditInputForm } from './EditInputForm';
@@ -10,6 +10,8 @@ export const InputForm = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [currentInput, setCurrentInput] = useState({});
   const [category, setCategory] = useState('');
+  const [inProcess, setInProcess] = useState(false);
+  const [completed, setCompleted] = useState(false);
   const [inputs, setInputs] = useState(() => {
     const savedInputs = localStorage.getItem('inputs');
     if (savedInputs) {
@@ -21,6 +23,14 @@ export const InputForm = () => {
   useEffect(() => {
     localStorage.setItem('inputs', JSON.stringify(inputs));
   }, [inputs]);
+
+  // useEffect(() => {
+  //   localStorage.setItem('inProcess', JSON.stringify(inProcess));
+  // }, [inProcess]);
+
+  // useEffect(() => {
+  //   localStorage.setItem('inProcess', JSON.stringify(completed));
+  // }, [completed]);
 
   const handleInput = e => {
     setInput(e.target.value);
@@ -39,7 +49,7 @@ export const InputForm = () => {
 
   const handleFormSubmit = e => {
     e.preventDefault();
-    console.log('SUBMTTED');
+    console.log('SUBMITTED');
 
     if (input !== '') {
       setInputs([
@@ -48,6 +58,8 @@ export const InputForm = () => {
           id: inputs.length + 1,
           text: input.trim(),
           category: category,
+          inProcess: false,
+          complete: false,
         },
       ]);
     }
@@ -79,14 +91,46 @@ export const InputForm = () => {
     setCurrentInput({ ...input });
   };
 
-  const shows = inputs.filter(input => input.category === 'show');
-  const movies = inputs.filter(input => input.category === 'movie');
-  const games = inputs.filter(input => input.category === 'game');
+  const handleInProcess = id => {
+    const toggled = inputs.map(input => {
+      return input.id === id
+        ? { ...input, inProcess: !input.inProcess }
+        : { ...input };
+    });
+    setInputs(toggled);
+    console.log('in process clicked');
+  };
+
+  const handleCompleted = id => {
+    const completed = inputs.map(input => {
+      return input.id === id
+        ? { ...input, completed: !input.completed }
+        : { ...input };
+    });
+    setInputs(completed);
+    console.log('completed clicked');
+  };
+
+  const shows = inputs.filter(
+    input => input.category === 'show' && !input.inProcess && !input.completed
+  );
+  const movies = inputs.filter(
+    input => input.category === 'movie' && !input.inProcess && !input.completed
+  );
+  const games = inputs.filter(
+    input => input.category === 'game' && !input.inProcess && !input.completed
+  );
+  const currentlyWatching = inputs.filter(
+    input => input.inProcess && !input.completed
+  );
+  console.log('currently watching', currentlyWatching);
+
+  const complete = inputs.filter(input => input.completed);
 
   return (
     <>
+      <Header />
       <div>
-        <h1>entertainMEnt</h1>
         {isEditing ? (
           <EditInputForm
             currentInput={currentInput}
@@ -106,80 +150,98 @@ export const InputForm = () => {
         )}
       </div>
       <section className='list-container'>
-        <div>
-          <ul className='input-list'>
-            {shows.map(input => (
-              <InputItem
-                input={input}
-                onEditClick={handleEditClick}
-                onDeleteClick={handleDeleteInput}
-              />
-            ))}
-          </ul>
-        </div>
-        <div>
-          <ul className='input-list'>
-            {movies.map(input => (
-              <InputItem
-                input={input}
-                onEditClick={handleEditClick}
-                onDeleteClick={handleDeleteInput}
-              />
-            ))}
-          </ul>
-        </div>
-        <div>
-          <ul className='input-list'>
-            {games.map(input => (
-              <InputItem
-                input={input}
-                onEditClick={handleEditClick}
-                onDeleteClick={handleDeleteInput}
-              />
-            ))}
-          </ul>
+        <div className='list-contents'>
+          <div>
+            <h3>shows</h3>
+            {shows.length > 0 && (
+              <ul className='input-list'>
+                {shows.map(input => (
+                  <InputItem
+                    key={input.id}
+                    input={input}
+                    onEditClick={handleEditClick}
+                    onDeleteClick={handleDeleteInput}
+                    onProcessClick={handleInProcess}
+                    onCompleteClick={handleCompleted}
+                  />
+                ))}
+              </ul>
+            )}
+          </div>
+
+          <div>
+            <h3>movies</h3>
+            {movies.length > 0 && (
+              <ul className='input-list'>
+                {movies.map(input => (
+                  <InputItem
+                    key={input.id}
+                    input={input}
+                    onEditClick={handleEditClick}
+                    onDeleteClick={handleDeleteInput}
+                    onProcessClick={handleInProcess}
+                    onCompleteClick={handleCompleted}
+                  />
+                ))}
+              </ul>
+            )}
+          </div>
+
+          <div>
+            <h3>games</h3>
+            {games.length > 0 && (
+              <ul className='input-list'>
+                {games.map(input => (
+                  <InputItem
+                    key={input.id}
+                    input={input}
+                    onEditClick={handleEditClick}
+                    onDeleteClick={handleDeleteInput}
+                    onProcessClick={handleInProcess}
+                    onCompleteClick={handleCompleted}
+                  />
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       </section>
-      {/* 
-      <div>
-        {shows.length > 0 && (
-          <ul>
-            {shows.map(input => (
-              <InputItem
-                input={input}
-                onEditClick={handleEditClick}
-                onDeleteClick={handleDeleteInput}
-              />
-            ))}
-          </ul>
-        )}
-      </div>
-      <div>
-        {games.length > 0 && (
-          <ul>
-            {shows.map(input => (
-              <InputItem
-                input={input}
-                onEditClick={handleEditClick}
-                onDeleteClick={handleDeleteInput}
-              />
-            ))}
-          </ul>
-        )}
-      </div>
-      <div>
-        {movies.length > 0 && (
-          <ul>
-            {shows.map(input => (
-              <InputItem
-                input={input}
-                onEditClick={handleEditClick}
-                onDeleteClick={handleDeleteInput}
-              />
-            ))}
-          </ul>
-        )}
-      </div> */}
+      <section className='toggled-list'>
+        <div>
+          <h3>in process</h3>
+          {currentlyWatching.length > 0 && (
+            <ul className='input-list'>
+              {currentlyWatching.map(input => (
+                <InputItem
+                  key={input.id}
+                  input={input}
+                  onEditClick={handleEditClick}
+                  onDeleteClick={handleDeleteInput}
+                  onCompleteClick={handleCompleted}
+                />
+              ))}
+            </ul>
+          )}
+        </div>
+        <div>
+          <h3>completed</h3>
+          <div className='completed-list'>
+            {complete.length > 0 && (
+              <ul className='input-list'>
+                {complete.map(input => (
+                  <InputItem
+                    key={input.id}
+                    input={input}
+                    onEditClick={handleEditClick}
+                    onDeleteClick={handleDeleteInput}
+                    onCompleteClick={handleCompleted}
+                  />
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+      </section>
     </>
   );
 };
