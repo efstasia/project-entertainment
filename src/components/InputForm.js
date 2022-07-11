@@ -59,7 +59,7 @@ export const InputForm = () => {
           text: input.trim(),
           category: category,
           inProcess: false,
-          complete: false,
+          completed: false,
         },
       ]);
     }
@@ -98,13 +98,13 @@ export const InputForm = () => {
         : { ...input };
     });
     setInputs(toggled);
-    console.log('in process clicked');
+    console.log('in process clicked', toggled);
   };
 
   const handleCompleted = id => {
     const completed = inputs.map(input => {
       return input.id === id
-        ? { ...input, completed: !input.completed }
+        ? { ...input, completed: !input.completed, inProcess: !input.inProcess }
         : { ...input };
     });
     setInputs(completed);
@@ -139,7 +139,7 @@ export const InputForm = () => {
             onEditFormSubmit={handleEditFormSubmit}
           />
         ) : (
-          <div>
+          <div className='input-entry'>
             <AddInputForm
               input={input}
               handleInput={handleInput}
@@ -217,6 +217,7 @@ export const InputForm = () => {
                   input={input}
                   onEditClick={handleEditClick}
                   onDeleteClick={handleDeleteInput}
+                  onProcessClick={handleInProcess}
                   onCompleteClick={handleCompleted}
                 />
               ))}
@@ -234,6 +235,7 @@ export const InputForm = () => {
                     input={input}
                     onEditClick={handleEditClick}
                     onDeleteClick={handleDeleteInput}
+                    onProcessClick={handleInProcess}
                     onCompleteClick={handleCompleted}
                   />
                 ))}

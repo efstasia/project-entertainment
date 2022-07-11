@@ -8,8 +8,7 @@ export const EditInputForm = ({
 }) => {
   return (
     <form onSubmit={onEditFormSubmit}>
-      <h2>Edit Todo</h2>
-      <label htmlFor='updateTodo'>Update todo: </label>
+      <label htmlFor='updateTodo'>Update todo </label>
       <input
         name='updateTodo'
         type='text'
@@ -17,10 +16,12 @@ export const EditInputForm = ({
         value={currentInput.text}
         onChange={onEditInputChange}
       />
-      <button type='submit' onClick={onEditFormSubmit}>
+      <button className='add-button' type='submit' onClick={onEditFormSubmit}>
         Update
       </button>
-      <button onClick={() => setIsEditing(false)}>Cancel</button>
+      <button className='add-button' onClick={() => setIsEditing(false)}>
+        Cancel
+      </button>
     </form>
   );
 };

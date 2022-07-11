@@ -1,8 +1,13 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faCheck } from '@fortawesome/free-solid-svg-icons';
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPenToSquare,
+  faCheck,
+  faSpinner,
+  faTrashCan,
+} from '@fortawesome/free-solid-svg-icons';
+// import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+// import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 export const InputItem = ({
   input,
@@ -19,19 +24,23 @@ export const InputItem = ({
         <li key={input.id}>
           {input.text}
           <div className='button-container'>
-            <button onClick={() => onDeleteClick(input.id)}>x</button>
+            <button onClick={() => onDeleteClick(input.id)}>
+              <FontAwesomeIcon icon={faTrashCan} />
+            </button>
             <button onClick={() => onEditClick(input)}>
               <FontAwesomeIcon icon={faPenToSquare} />
             </button>
-            {!input.inProcess && (
+            {!input.inProcess && !input.completed && (
               <button onClick={() => onProcessClick(input.id)}>
                 <FontAwesomeIcon icon={faSpinner} />
               </button>
             )}
-            {!input.complete && (
+            {!input.completed ? (
               <button onClick={() => onCompleteClick(input.id)}>
                 <FontAwesomeIcon icon={faCheck} />
               </button>
+            ) : (
+              <button onClick={() => onCompleteClick(input.id)}>undo</button>
             )}
 
             {/* {input.category} */}

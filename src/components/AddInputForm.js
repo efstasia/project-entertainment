@@ -14,7 +14,7 @@ export const AddInputForm = ({
           value={input}
           onChange={handleInput}
           name='inputs'
-          placeholder='enter here'
+          placeholder='enter title here..'
         />
         <select onChange={handleSelectMenu} defaultValue='default'>
           <option disabled value={'default'}>
@@ -24,7 +24,9 @@ export const AddInputForm = ({
           <option value='movie'>movie</option>
           <option value='game'>game</option>
         </select>
-        <button type='submit'>add</button>
+        <button className='add-button' type='submit'>
+          add
+        </button>
       </form>
     </section>
   );
