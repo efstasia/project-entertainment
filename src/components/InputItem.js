@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Rating } from 'react-simple-star-rating';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPenToSquare,
@@ -14,6 +15,12 @@ export const InputItem = ({
   onProcessClick,
   onCompleteClick,
 }) => {
+  const [rating, setRating] = useState(0); // initial rating value
+  const handleRating = rate => {
+    setRating(rate);
+    // other logic
+  };
+
   return (
     <div className='list-item-container'>
       <div className='input-list-item'>
@@ -66,6 +73,16 @@ export const InputItem = ({
               <span className='streaming-service'> game</span>
             )}
           </div>
+          {input.completed && (
+            <span className='rating'>
+              <Rating
+                onClick={handleRating}
+                ratingValue={rating} /* Available Props */
+                size='18'
+                fillColor='#cdbe78'
+              />
+            </span>
+          )}
         </li>
       </div>
     </div>

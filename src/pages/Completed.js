@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import { InputItem } from '../components/InputItem';
 
 export const Completed = () => {
@@ -50,13 +51,15 @@ export const Completed = () => {
         <div className='completed-list'>
           <ul className='input-list'>
             {complete.map(input => (
-              <InputItem
-                key={input.id}
-                input={input}
-                onDeleteClick={handleDeleteInput}
-                handleInProcess={handleInProcess}
-                onCompleteClick={handleCompleted}
-              />
+              <div>
+                <InputItem
+                  key={input.id}
+                  input={input}
+                  onDeleteClick={handleDeleteInput}
+                  handleInProcess={handleInProcess}
+                  onCompleteClick={handleCompleted}
+                />
+              </div>
             ))}
           </ul>
         </div>
