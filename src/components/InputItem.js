@@ -15,8 +15,6 @@ export const InputItem = ({
   onDeleteClick,
   onProcessClick,
   onCompleteClick,
-
-  // inProcess,
 }) => {
   return (
     <div className='list-item-container'>
@@ -42,8 +40,7 @@ export const InputItem = ({
             ) : (
               <button onClick={() => onCompleteClick(input.id)}>undo</button>
             )}
-
-            {/* {input.category} */}
+            <span className='streaming-service'> {input.streamingService}</span>
           </div>
         </li>
       </div>

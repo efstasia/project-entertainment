@@ -5,6 +5,8 @@ import { AddInputForm } from './AddInputForm';
 import { InputItem } from './InputItem';
 import { EditInputForm } from './EditInputForm';
 
+import netflix from '../images/netflix.jpg';
+
 export const InputForm = () => {
   const [input, setInput] = useState('');
   const [isEditing, setIsEditing] = useState(false);
@@ -12,6 +14,7 @@ export const InputForm = () => {
   const [category, setCategory] = useState('');
   const [inProcess, setInProcess] = useState(false);
   const [completed, setCompleted] = useState(false);
+  const [streamingService, setStreamingService] = useState('');
   const [inputs, setInputs] = useState(() => {
     const savedInputs = localStorage.getItem('inputs');
     if (savedInputs) {
@@ -24,14 +27,6 @@ export const InputForm = () => {
     localStorage.setItem('inputs', JSON.stringify(inputs));
   }, [inputs]);
 
-  // useEffect(() => {
-  //   localStorage.setItem('inProcess', JSON.stringify(inProcess));
-  // }, [inProcess]);
-
-  // useEffect(() => {
-  //   localStorage.setItem('inProcess', JSON.stringify(completed));
-  // }, [completed]);
-
   const handleInput = e => {
     setInput(e.target.value);
     console.log('INPUT TEXT:', e.target.value);
@@ -43,7 +38,11 @@ export const InputForm = () => {
   };
 
   const handleEditChange = e => {
-    setCurrentInput({ ...currentInput, text: e.target.value });
+    setCurrentInput({
+      ...currentInput,
+      text: e.target.value,
+      category: e.target.value,
+    });
     console.log(currentInput);
   };
 
@@ -60,6 +59,7 @@ export const InputForm = () => {
           category: category,
           inProcess: false,
           completed: false,
+          streamingService,
         },
       ]);
     }
@@ -79,11 +79,11 @@ export const InputForm = () => {
     setInputs(updatedItem);
   };
 
-  const handleDeleteInput = () => {
-    const refactoredItemId = inputs.filter((input, index) => {
-      return (input.id = index);
+  const handleDeleteInput = id => {
+    const removeInput = inputs.filter(input => {
+      return input.id !== id;
     });
-    setInputs(refactoredItemId);
+    setInputs(removeInput);
   };
 
   const handleEditClick = input => {
@@ -111,6 +111,11 @@ export const InputForm = () => {
     console.log('completed clicked');
   };
 
+  const handleStreamingService = e => {
+    setStreamingService(e.target.value);
+    console.log(e.target.value);
+  };
+
   const shows = inputs.filter(
     input => input.category === 'show' && !input.inProcess && !input.completed
   );
@@ -129,7 +134,6 @@ export const InputForm = () => {
 
   return (
     <>
-      <Header />
       <div>
         {isEditing ? (
           <EditInputForm
@@ -142,9 +146,11 @@ export const InputForm = () => {
           <div className='input-entry'>
             <AddInputForm
               input={input}
+              category={category}
               handleInput={handleInput}
               onFormSubmit={handleFormSubmit}
               handleSelectMenu={handleSelectMenu}
+              handleStreamingService={handleStreamingService}
             />
           </div>
         )}

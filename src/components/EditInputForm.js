@@ -16,6 +16,7 @@ export const EditInputForm = ({
         value={currentInput.text}
         onChange={onEditInputChange}
       />
+
       <button className='add-button' type='submit' onClick={onEditFormSubmit}>
         Update
       </button>
