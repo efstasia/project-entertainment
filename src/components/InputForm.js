@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClapperboard } from '@fortawesome/free-solid-svg-icons';
 
 import { Header } from './Header';
 import { AddInputForm } from './AddInputForm';
 import { InputItem } from './InputItem';
 import { EditInputForm } from './EditInputForm';
 
-import netflix from '../images/netflix.jpg';
-
 export const InputForm = () => {
   const [input, setInput] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [currentInput, setCurrentInput] = useState({});
   const [category, setCategory] = useState('');
-  const [inProcess, setInProcess] = useState(false);
-  const [completed, setCompleted] = useState(false);
+  // const [inProcess, setInProcess] = useState(false);
+  // const [completed, setCompleted] = useState(false);
   const [streamingService, setStreamingService] = useState('');
   const [inputs, setInputs] = useState(() => {
     const savedInputs = localStorage.getItem('inputs');
@@ -125,12 +125,13 @@ export const InputForm = () => {
   const games = inputs.filter(
     input => input.category === 'game' && !input.inProcess && !input.completed
   );
-  const currentlyWatching = inputs.filter(
-    input => input.inProcess && !input.completed
-  );
-  console.log('currently watching', currentlyWatching);
+  // const currentlyWatching = inputs.filter(
+  //   input => input.inProcess && !input.completed
+  // );
+  // console.log('currently watching', currentlyWatching);
 
-  const complete = inputs.filter(input => input.completed);
+  // const complete = inputs.filter(input => input.completed);
+  console.log('INPUTS', inputs);
 
   return (
     <>
@@ -211,43 +212,14 @@ export const InputForm = () => {
             )}
           </div>
         </div>
-      </section>
-      <section className='toggled-list'>
-        <div>
-          <h3>in process</h3>
-          {currentlyWatching.length > 0 && (
-            <ul className='input-list'>
-              {currentlyWatching.map(input => (
-                <InputItem
-                  key={input.id}
-                  input={input}
-                  onEditClick={handleEditClick}
-                  onDeleteClick={handleDeleteInput}
-                  onProcessClick={handleInProcess}
-                  onCompleteClick={handleCompleted}
-                />
-              ))}
-            </ul>
+        <div className='empty-list'>
+          {games.length === 0 && shows.length === 0 && movies.length === 0 && (
+            <div>
+              <h2>
+                nothing added yet <FontAwesomeIcon icon={faClapperboard} />
+              </h2>
+            </div>
           )}
-        </div>
-        <div>
-          <h3>completed</h3>
-          <div className='completed-list'>
-            {complete.length > 0 && (
-              <ul className='input-list'>
-                {complete.map(input => (
-                  <InputItem
-                    key={input.id}
-                    input={input}
-                    onEditClick={handleEditClick}
-                    onDeleteClick={handleDeleteInput}
-                    onProcessClick={handleInProcess}
-                    onCompleteClick={handleCompleted}
-                  />
-                ))}
-              </ul>
-            )}
-          </div>
         </div>
       </section>
     </>

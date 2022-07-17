@@ -3,11 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPenToSquare,
   faCheck,
-  faSpinner,
   faTrashCan,
+  faEye,
 } from '@fortawesome/free-solid-svg-icons';
-// import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-// import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 export const InputItem = ({
   input,
@@ -20,27 +18,53 @@ export const InputItem = ({
     <div className='list-item-container'>
       <div className='input-list-item'>
         <li key={input.id}>
-          {input.text}
+          <span className='input-text'>{input.text}</span>
           <div className='button-container'>
-            <button onClick={() => onDeleteClick(input.id)}>
+            <button
+              className='list-icons'
+              onClick={() => onDeleteClick(input.id)}
+            >
               <FontAwesomeIcon icon={faTrashCan} />
             </button>
-            <button onClick={() => onEditClick(input)}>
-              <FontAwesomeIcon icon={faPenToSquare} />
-            </button>
+            {!input.inProcess ? (
+              <button className='list-icons' onClick={() => onEditClick(input)}>
+                <FontAwesomeIcon icon={faPenToSquare} />
+              </button>
+            ) : (
+              ''
+            )}
+
             {!input.inProcess && !input.completed && (
-              <button onClick={() => onProcessClick(input.id)}>
-                <FontAwesomeIcon icon={faSpinner} />
+              <button
+                className='list-icons'
+                onClick={() => onProcessClick(input.id)}
+              >
+                <FontAwesomeIcon icon={faEye} />
               </button>
             )}
             {!input.completed ? (
-              <button onClick={() => onCompleteClick(input.id)}>
+              <button
+                className='list-icons'
+                onClick={() => onCompleteClick(input.id)}
+              >
                 <FontAwesomeIcon icon={faCheck} />
               </button>
             ) : (
-              <button onClick={() => onCompleteClick(input.id)}>undo</button>
+              <button
+                className='list-icons'
+                onClick={() => onCompleteClick(input.id)}
+              >
+                undo
+              </button>
             )}
-            <span className='streaming-service'> {input.streamingService}</span>
+            {input.streamingService ? (
+              <span className='streaming-service'>
+                {' '}
+                {input.streamingService}
+              </span>
+            ) : (
+              <span className='streaming-service'> game</span>
+            )}
           </div>
         </li>
       </div>

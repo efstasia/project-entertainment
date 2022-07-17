@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 export const AddInputForm = ({
   input,
@@ -48,7 +50,7 @@ export const AddInputForm = ({
           </select>
         )}
         <button className='add-button' type='submit'>
-          add
+          <FontAwesomeIcon icon={faPlus} />
         </button>
       </form>
     </section>

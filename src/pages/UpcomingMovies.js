@@ -21,14 +21,7 @@ export const UpcomingMovies = () => {
     <div className='movie-list'>
       {movies.map(movie => (
         <div key={movie.id} className='movie-card'>
-          <div
-
-          // style={{
-          //   backgroundImage: movie.backdrop_path
-          //     ? `linear-gradient(rgba(0, 0, 0, 0) 70%, rgb(0, 0, 0) 100%), url(https://image.tmdb.org/t/p/w1280${movie.backdrop_path})`
-          //     : '',
-          // }}
-          >
+          <div>
             <div className='movie-details'>
               <img
                 className='movie-poster'
