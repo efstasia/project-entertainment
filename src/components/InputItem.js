@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Rating } from 'react-simple-star-rating';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -6,6 +6,7 @@ import {
   faCheck,
   faTrashCan,
   faEye,
+  faGamepad,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const InputItem = ({
@@ -14,12 +15,22 @@ export const InputItem = ({
   onDeleteClick,
   onProcessClick,
   onCompleteClick,
+  inputs,
+  id,
 }) => {
-  const [rating, setRating] = useState(0); // initial rating value
+  const [rating, setRating] = useState(() => {
+    const savedRatings = localStorage.getItem('rating');
+    if (savedRatings) {
+      return JSON.parse(savedRatings);
+    }
+    return 0;
+  }); // initial rating value
   const handleRating = rate => {
     setRating(rate);
-    // other logic
   };
+  useEffect(() => {
+    localStorage.setItem('rating', JSON.stringify(rating));
+  }, [rating]);
 
   return (
     <div className='list-item-container'>
@@ -33,7 +44,7 @@ export const InputItem = ({
             >
               <FontAwesomeIcon icon={faTrashCan} />
             </button>
-            {!input.inProcess ? (
+            {!input.inProcess && !input.completed ? (
               <button className='list-icons' onClick={() => onEditClick(input)}>
                 <FontAwesomeIcon icon={faPenToSquare} />
               </button>
@@ -66,23 +77,15 @@ export const InputItem = ({
             )}
             {input.streamingService ? (
               <span className='streaming-service'>
-                {' '}
                 {input.streamingService}
               </span>
             ) : (
-              <span className='streaming-service'> game</span>
+              <span className='streaming-service'>
+                {' '}
+                <FontAwesomeIcon icon={faGamepad} />
+              </span>
             )}
           </div>
-          {input.completed && (
-            <span className='rating'>
-              <Rating
-                onClick={handleRating}
-                ratingValue={rating} /* Available Props */
-                size='18'
-                fillColor='#cdbe78'
-              />
-            </span>
-          )}
         </li>
       </div>
     </div>

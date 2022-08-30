@@ -2,7 +2,15 @@ import React, { useState, useEffect } from 'react';
 
 import { InputItem } from '../components/InputItem';
 
-export const Completed = () => {
+export const Completed = ({ id, input }) => {
+  // initial rating value
+  // const handleRating = rate => {
+  //   const rated = inputs.map(input => {
+  //     return input.id === id ? {input, rating: rating} : {...input}
+  //   })
+  //   // other logic
+  //   setRating(rated)
+  // };
   const [inputs, setInputs] = useState(() => {
     const savedInputs = localStorage.getItem('inputs');
     if (savedInputs) {
@@ -22,7 +30,6 @@ export const Completed = () => {
         : { ...input };
     });
     setInputs(completed);
-    console.log('completed clicked');
   };
   const handleDeleteInput = id => {
     const removeInput = inputs.filter(input => {
@@ -38,30 +45,29 @@ export const Completed = () => {
         : { ...input };
     });
     setInputs(toggled);
-    console.log('in process clicked', toggled);
   };
 
   const complete = inputs.filter(input => input.completed);
-  console.log('INPUTS', inputs);
 
   return (
     <section className='list-container watch-list'>
       <div className='toggled-list'>
         <h3>completed</h3>
         <div className='completed-list'>
-          <ul className='input-list'>
-            {complete.map(input => (
-              <div>
+          {complete && (
+            <ul className='input-list'>
+              {complete.map(input => (
                 <InputItem
                   key={input.id}
+                  id={id}
                   input={input}
                   onDeleteClick={handleDeleteInput}
                   handleInProcess={handleInProcess}
                   onCompleteClick={handleCompleted}
                 />
-              </div>
-            ))}
-          </ul>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </section>

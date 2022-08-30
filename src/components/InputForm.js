@@ -2,18 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClapperboard } from '@fortawesome/free-solid-svg-icons';
 
-import { Header } from './Header';
 import { AddInputForm } from './AddInputForm';
 import { InputItem } from './InputItem';
 import { EditInputForm } from './EditInputForm';
 
 export const InputForm = () => {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [currentInput, setCurrentInput] = useState({});
   const [category, setCategory] = useState('');
-  // const [inProcess, setInProcess] = useState(false);
-  // const [completed, setCompleted] = useState(false);
   const [streamingService, setStreamingService] = useState('');
   const [inputs, setInputs] = useState(() => {
     const savedInputs = localStorage.getItem('inputs');
@@ -29,26 +26,21 @@ export const InputForm = () => {
 
   const handleInput = e => {
     setInput(e.target.value);
-    console.log('INPUT TEXT:', e.target.value);
   };
 
   const handleSelectMenu = e => {
     setCategory(e.target.value);
-    console.log(e.target.value);
   };
 
   const handleEditChange = e => {
     setCurrentInput({
       ...currentInput,
       text: e.target.value,
-      category: e.target.value,
     });
-    console.log(currentInput);
   };
 
   const handleFormSubmit = e => {
     e.preventDefault();
-    console.log('SUBMITTED');
 
     if (input !== '') {
       setInputs([
@@ -56,14 +48,17 @@ export const InputForm = () => {
         {
           id: inputs.length + 1,
           text: input.trim(),
-          category: category,
+          category,
           inProcess: false,
           completed: false,
           streamingService,
+          currentInput,
         },
       ]);
     }
     setInput('');
+    setCategory('');
+    setStreamingService('');
   };
 
   const handleEditFormSubmit = e => {
@@ -98,7 +93,6 @@ export const InputForm = () => {
         : { ...input };
     });
     setInputs(toggled);
-    console.log('in process clicked', toggled);
   };
 
   const handleCompleted = id => {
@@ -108,12 +102,10 @@ export const InputForm = () => {
         : { ...input };
     });
     setInputs(completed);
-    console.log('completed clicked');
   };
 
   const handleStreamingService = e => {
     setStreamingService(e.target.value);
-    console.log(e.target.value);
   };
 
   const shows = inputs.filter(
@@ -125,13 +117,6 @@ export const InputForm = () => {
   const games = inputs.filter(
     input => input.category === 'game' && !input.inProcess && !input.completed
   );
-  // const currentlyWatching = inputs.filter(
-  //   input => input.inProcess && !input.completed
-  // );
-  // console.log('currently watching', currentlyWatching);
-
-  // const complete = inputs.filter(input => input.completed);
-  console.log('INPUTS', inputs);
 
   return (
     <>

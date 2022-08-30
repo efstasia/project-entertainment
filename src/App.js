@@ -1,11 +1,12 @@
 import './App.css';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { Header } from './components/Header';
 import { InputForm } from './components/InputForm';
 import { UpcomingMovies } from './pages/UpcomingMovies';
 import { CurrentlyWatching } from './pages/CurrentlyWatching';
 import { Completed } from './pages/Completed';
+import { Footer } from './components/Footer';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path='/in-process' element={<CurrentlyWatching />} />
         <Route path='/completed' element={<Completed />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { InputItem } from '../components/InputItem';
 
-export const CurrentlyWatching = () => {
+export const CurrentlyWatching = ({ setCurrentInput, currentInput }) => {
   const [inputs, setInputs] = useState(() => {
     const savedInputs = localStorage.getItem('inputs');
     if (savedInputs) {
@@ -21,7 +21,6 @@ export const CurrentlyWatching = () => {
         : { ...input };
     });
     setInputs(completed);
-    console.log('completed clicked');
   };
   const handleDeleteInput = id => {
     const removeInput = inputs.filter(input => {
@@ -32,8 +31,7 @@ export const CurrentlyWatching = () => {
   const currentlyWatching = inputs.filter(
     input => input.inProcess && !input.completed
   );
-  console.log('curr watching', currentlyWatching);
-  console.log('inputs', inputs);
+
   return (
     <section className='list-container watch-list'>
       <div className='toggled-list'>

@@ -46,6 +46,7 @@ export const AddInputForm = ({
             <option value='4play'>tv4play</option>
             <option value='svt'>svtplay</option>
             <option value='discovery'>discovery+</option>
+            <option value='disney'>disney</option>
             <option value='unknown'>unknown</option>
           </select>
         )}

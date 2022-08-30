@@ -5,6 +5,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
   background: #066163;
+  height: 100vh;
 }
 
 code {
@@ -22,14 +23,12 @@ h3 {
   color: #cdbe78;
   display: flex;
   justify-content: center;
-  /* text-shadow: -2px 2px #161616; */
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 2px;
 }
 
 .header-container span {
   text-decoration: underline;
-  /* color: #066163; */
 }
 
 nav {
@@ -75,7 +74,7 @@ form {
 
 .input-entry input,
 select {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
   border-radius: 5px;
   padding: 5px;
   margin: 5px;
@@ -84,14 +83,12 @@ select {
 }
 
 .list-container h3 {
-  border: 2px solid #066163;
+  border: 2px solid #cdbe78;
   border-radius: 10px 5px 10px 5px;
   background: #383838;
   text-align: center;
-  color: #fff;
-
+  color: #cdbe78;
   grid-row: 1 / 2;
-  /* width: 100px; */
 }
 
 .list-container {
@@ -113,11 +110,9 @@ select {
 }
 
 .input-list {
-  height: auto;
+  width: 80%;
+  margin: auto;
   padding: 10px;
-  /* border: solid 4px;
-  border-image-source: linear-gradient(to bottom right, #066163, #cdbe78);
-  border-image-slice: 4; */
   list-style-type: none;
 }
 
@@ -126,7 +121,7 @@ select {
 }
 
 .list-item-container li {
-  border: 2px solid #cdbe78;
+  border: 2px solid #066163;
   border-radius: 5px;
   display: flex;
   padding: 10px;
@@ -155,24 +150,9 @@ select {
   border: none;
 }
 
-.completed-list {
-  text-decoration: line-through;
-}
-
-/* .movie-details {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-} */
-
 .movie-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-}
-
-.movie-details {
-  /* border: 2px solid #161616;
-  height: 100%;
-  width: 100%; */
 }
 
 .movie-poster {
@@ -200,12 +180,6 @@ select {
 }
 
 .add-button {
-  /* border-radius: 10px;
-  background: #303030;
-  color: #cdbe78;
-  width: 30px;
-  height: 22px;
-  border: 2px solid #161616; */
   display: inline-block;
   outline: none;
   cursor: pointer;
@@ -218,10 +192,11 @@ select {
   min-width: 40px;
   min-height: 28px;
   border: none;
-  color: #e2d185;
+  background-color: #e2d185;
   border: 1.5px solid #066163;
-  background: #6a6a6a;
+  color: #303030;
   transition: background-color 0.17s ease, color 0.17s ease;
+  font-family: 'Poppins', sans-serif;
 }
 
 .list-icons:hover,
@@ -230,8 +205,8 @@ select {
 }
 
 .add-button:hover {
-  background-color: #cdbe78;
-  color: #303030;
+  color: #cdbe78;
+  background-color: #6a6a6a;
 }
 
 .empty-list h2 {
@@ -259,4 +234,24 @@ select {
 .button-container button:hover {
   color: #6a6a6a;
   background: #e2d185;
+}
+
+.w-6 {
+  width: 1.5em;
+}
+.h-6 {
+  height: 1.5em;
+}
+
+.footer {
+  position: absolute;
+  height: 25px;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  background: #383838;
+  color: #e2d185;
+  text-align: center;
+  padding: 3px;
+  font-size: 12px;
 }
