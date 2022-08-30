@@ -15,7 +15,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<InputForm />} />
         <Route path='/movies' element={<UpcomingMovies />} />
-        <Route path='/in-process' element={<CurrentlyWatching />} />
+        <Route path='/active' element={<CurrentlyWatching />} />
         <Route path='/completed' element={<Completed />} />
       </Routes>
       <Footer />

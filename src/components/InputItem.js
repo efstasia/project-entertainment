@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Rating } from 'react-simple-star-rating';
+import React from 'react';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPenToSquare,
@@ -15,23 +15,7 @@ export const InputItem = ({
   onDeleteClick,
   onProcessClick,
   onCompleteClick,
-  inputs,
-  id,
 }) => {
-  const [rating, setRating] = useState(() => {
-    const savedRatings = localStorage.getItem('rating');
-    if (savedRatings) {
-      return JSON.parse(savedRatings);
-    }
-    return 0;
-  }); // initial rating value
-  const handleRating = rate => {
-    setRating(rate);
-  };
-  useEffect(() => {
-    localStorage.setItem('rating', JSON.stringify(rating));
-  }, [rating]);
-
   return (
     <div className='list-item-container'>
       <div className='input-list-item'>
