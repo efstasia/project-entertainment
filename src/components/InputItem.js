@@ -21,6 +21,14 @@ export const InputItem = ({
       <div className='input-list-item'>
         <li key={input.id}>
           <span className='input-text'>{input.text}</span>
+          {input.streamingService ? (
+            <span className='streaming-service'>{input.streamingService}</span>
+          ) : (
+            <span className='streaming-service'>
+              {' '}
+              <FontAwesomeIcon icon={faGamepad} />
+            </span>
+          )}
           <div className='button-container'>
             <button
               className='list-icons'
@@ -58,16 +66,6 @@ export const InputItem = ({
               >
                 undo
               </button>
-            )}
-            {input.streamingService ? (
-              <span className='streaming-service'>
-                {input.streamingService}
-              </span>
-            ) : (
-              <span className='streaming-service'>
-                {' '}
-                <FontAwesomeIcon icon={faGamepad} />
-              </span>
             )}
           </div>
         </li>
