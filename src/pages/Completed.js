@@ -3,14 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { InputItem } from '../components/InputItem';
 
 export const Completed = ({ id, input }) => {
-  // initial rating value
-  // const handleRating = rate => {
-  //   const rated = inputs.map(input => {
-  //     return input.id === id ? {input, rating: rating} : {...input}
-  //   })
-  //   // other logic
-  //   setRating(rated)
-  // };
   const [inputs, setInputs] = useState(() => {
     const savedInputs = localStorage.getItem('inputs');
     if (savedInputs) {
@@ -50,7 +42,7 @@ export const Completed = ({ id, input }) => {
   const complete = inputs.filter(input => input.completed);
 
   return (
-    <section className='list-container watch-list'>
+    <section className='list-container '>
       <div className='toggled-list'>
         <h3>completed</h3>
         <div className='completed-list'>

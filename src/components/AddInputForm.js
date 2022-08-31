@@ -23,7 +23,7 @@ export const AddInputForm = ({
         />
         <select onChange={handleSelectMenu} defaultValue='default'>
           <option disabled value={'default'}>
-            pick category here
+            category
           </option>
           <option value='show'>tv-show</option>
           <option value='movie'>movie</option>
@@ -36,7 +36,7 @@ export const AddInputForm = ({
             defaultValue='default'
           >
             <option disabled value={'default'}>
-              pick streaming service
+              streaming service
             </option>
             <option value='netflix'>netflix</option>
             <option value='HBO'>HBO</option>

@@ -33,22 +33,23 @@ export const CurrentlyWatching = ({ setCurrentInput, currentInput }) => {
   );
 
   return (
-    <section className='list-container watch-list'>
+    <section className='list-container '>
       <div className='toggled-list'>
         <h3>in process</h3>
-
-        {currentlyWatching && (
-          <ul className='input-list'>
-            {currentlyWatching.map(input => (
-              <InputItem
-                key={input.id}
-                input={input}
-                onDeleteClick={handleDeleteInput}
-                onCompleteClick={handleCompleted}
-              />
-            ))}
-          </ul>
-        )}
+        <div className='active-list'>
+          {currentlyWatching && (
+            <ul className='input-list'>
+              {currentlyWatching.map(input => (
+                <InputItem
+                  key={input.id}
+                  input={input}
+                  onDeleteClick={handleDeleteInput}
+                  onCompleteClick={handleCompleted}
+                />
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
     </section>
   );
